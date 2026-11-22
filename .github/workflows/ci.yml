@@ -1,0 +1,50 @@
+# Runs on every pull request into main, and on pushes to main
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# Cancel older runs of the same branch when new commits arrive
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least-privilege token: CI only needs to read the code
+permissions:
+  contents: read
+
+jobs:
+  # This job name ("ci") is what branch protection will require
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Node and cache npm downloads for faster runs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Clean, reproducible install from package-lock.json
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        # When the app uses Supabase, add the public URL and anon key here,
+        # stored as GitHub secrets, never hard-coded in the repo:
+        # env:
+        #   VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+        #   VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
