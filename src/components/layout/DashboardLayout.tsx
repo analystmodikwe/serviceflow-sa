@@ -1,0 +1,66 @@
+import type { ReactNode } from 'react'
+import { NavLink, Outlet } from 'react-router-dom'
+
+interface DashboardLayoutProps {
+  title: string
+  items: { to: string; label: string; end?: boolean }[]
+}
+
+function NavigationLink({
+  to,
+  label,
+  end,
+  children,
+}: {
+  to: string
+  label: string
+  end?: boolean
+  children?: ReactNode
+}) {
+  return (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        `min-w-0 flex-1 rounded-card px-3 py-2 font-medium ${
+          isActive ? 'bg-brand-700 text-surface' : 'text-surface hover:bg-brand-700'
+        }`
+      }
+    >
+      {children ?? label}
+    </NavLink>
+  )
+}
+
+export default function DashboardLayout({ title, items }: DashboardLayoutProps) {
+  return (
+    <div className="min-h-screen md:flex">
+      <aside className="hidden w-60 shrink-0 flex-col gap-6 bg-brand-900 p-6 text-surface md:flex">
+        <h1 className="text-xl font-bold">{title}</h1>
+        <nav aria-label={`${title} navigation`} className="flex flex-col gap-2">
+          {items.map((item) => (
+            <NavigationLink key={item.to} {...item} />
+          ))}
+        </nav>
+      </aside>
+
+      <div className="min-w-0 flex-1">
+        {/* Bottom padding keeps page content clear of the fixed mobile tab bar. */}
+        <main className="mx-auto max-w-6xl px-4 py-8 pb-24 md:pb-8">
+          <Outlet />
+        </main>
+      </div>
+
+      <nav
+        aria-label={`${title} navigation`}
+        className="fixed inset-x-0 bottom-0 z-10 flex border-t border-brand-100 bg-brand-900 p-2 md:hidden"
+      >
+        {items.map((item) => (
+          <NavigationLink key={item.to} {...item}>
+            <span className="block truncate text-center text-xs">{item.label}</span>
+          </NavigationLink>
+        ))}
+      </nav>
+    </div>
+  )
+}

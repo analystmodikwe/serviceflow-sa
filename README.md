@@ -43,6 +43,20 @@ Permissions are enforced in the database with Supabase Row Level Security (RLS).
 The frontend is not trusted. Admin is never selectable at signup; it is assigned
 directly in the database.
 
+## Frontend routes
+
+The app shell currently renders placeholders for these route groups:
+
+| Area | Routes |
+|---|---|
+| Public | `/`, `/browse`, `/p/:slug`, `/login`, `/signup`, `/booking-confirmed` |
+| Customer | `/my-bookings` |
+| Provider | `/provider`, `/provider/services`, `/provider/availability`, `/provider/profile` |
+| Admin | `/admin` |
+
+Unknown routes show a not-found page. Dashboard routes use a sidebar on desktop
+and a fixed bottom tab bar on mobile.
+
 ## Screenshots
 
 _Added once the screens are built on the live link._
