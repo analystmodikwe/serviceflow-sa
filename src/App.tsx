@@ -1,18 +1,64 @@
-// import { useState } from 'react'
-// import heroImg from './assets/hero.png'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from './assets/vite.svg'
+import { Route, Routes } from 'react-router-dom'
+import DashboardLayout from './components/layout/DashboardLayout'
+import PublicLayout from './components/layout/PublicLayout'
+import PagePlaceholder from './pages/PagePlaceholder'
 
-
-// Temporary page to confirm Tailwind and the design tokens work
 export default function App() {
   return (
-    <main className="min-h-screen p-8">
-      <h1 className="text-3xl font-bold text-brand-600">ServiceFlow SA</h1>
-      <p className="mt-2">Book your barber, braider or nail tech in seconds.</p>
-      <button className="mt-4 rounded-card bg-accent-500 px-5 py-3 font-semibold text-ink hover:bg-accent-600">
-        Find a provider
-      </button>
-    </main>
+    <Routes>
+      <Route element={<PublicLayout />}>
+        <Route index element={<PagePlaceholder title="Landing" />} />
+        <Route path="login" element={<PagePlaceholder title="Log in" />} />
+        <Route path="signup" element={<PagePlaceholder title="Sign up" />} />
+        <Route path="browse" element={<PagePlaceholder title="Browse providers" />} />
+        <Route path="p/:slug" element={<PagePlaceholder title="Provider profile and booking" />} />
+        <Route path="booking-confirmed" element={<PagePlaceholder title="Booking confirmed" />} />
+        <Route path="*" element={<PagePlaceholder title="Page not found" />} />
+      </Route>
+
+      <Route
+        path="my-bookings"
+        element={
+          <DashboardLayout
+            title="My account"
+            items={[{ to: '/my-bookings', label: 'My bookings', end: true }]}
+          />
+        }
+      >
+        <Route index element={<PagePlaceholder title="My bookings" />} />
+      </Route>
+
+      <Route
+        path="provider"
+        element={
+          <DashboardLayout
+            title="Provider"
+            items={[
+              { to: '/provider', label: 'Bookings', end: true },
+              { to: '/provider/services', label: 'Services' },
+              { to: '/provider/availability', label: 'Availability' },
+              { to: '/provider/profile', label: 'Profile' },
+            ]}
+          />
+        }
+      >
+        <Route index element={<PagePlaceholder title="Bookings" />} />
+        <Route path="services" element={<PagePlaceholder title="Services" />} />
+        <Route path="availability" element={<PagePlaceholder title="Availability" />} />
+        <Route path="profile" element={<PagePlaceholder title="Profile" />} />
+      </Route>
+
+      <Route
+        path="admin"
+        element={
+          <DashboardLayout
+            title="Admin"
+            items={[{ to: '/admin', label: 'Providers', end: true }]}
+          />
+        }
+      >
+        <Route index element={<PagePlaceholder title="Providers" />} />
+      </Route>
+    </Routes>
   )
 }
