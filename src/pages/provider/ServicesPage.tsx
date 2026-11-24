@@ -114,11 +114,11 @@ export default function ServicesPage() {
     return (
       <section>
         <h1 className="text-3xl font-bold text-brand-700">Services</h1>
-        <div className="mt-5 rounded-card border border-brand-100 bg-surface p-5">
+        <div className="mt-5 rounded-card border border-brand-100 bg-surface p-5 shadow-sm">
           <p>Set up your business profile before adding services.</p>
           <Link
             to="/provider/profile"
-            className="mt-3 inline-block rounded-card bg-accent-500 px-4 py-2 font-semibold text-ink"
+            className="mt-3 inline-block rounded-card bg-accent-500 px-4 py-2 font-semibold text-ink transition-colors hover:bg-accent-600"
           >
             Set up profile
           </Link>
@@ -134,7 +134,7 @@ export default function ServicesPage() {
         <button
           type="button"
           onClick={openAddForm}
-          className="rounded-card bg-accent-500 px-4 py-2 font-semibold text-ink"
+          className="rounded-card bg-accent-500 px-4 py-2 font-semibold text-ink transition-colors hover:bg-accent-600"
         >
           Add service
         </button>
@@ -148,7 +148,7 @@ export default function ServicesPage() {
 
       {showForm && (
         <form
-          className="mt-5 grid max-w-2xl gap-4 rounded-card border border-brand-100 bg-surface p-5 sm:grid-cols-3"
+          className="mt-5 grid max-w-2xl gap-4 rounded-card border border-brand-100 bg-surface p-5 shadow-sm sm:grid-cols-3"
           onSubmit={handleSubmit}
         >
           <label className="block text-sm font-medium sm:col-span-3" htmlFor="service-name">
@@ -191,7 +191,7 @@ export default function ServicesPage() {
             <button
               type="submit"
               disabled={saving}
-              className="rounded-card bg-brand-700 px-4 py-2 font-semibold text-surface disabled:opacity-60"
+              className="rounded-card bg-brand-700 px-4 py-2 font-semibold text-surface transition-colors hover:bg-brand-600 disabled:opacity-60"
             >
               {saving ? 'Saving...' : editing ? 'Save service' : 'Create service'}
             </button>
@@ -215,7 +215,7 @@ export default function ServicesPage() {
           {services.map((service) => (
             <article
               key={service.id}
-              className="flex flex-col gap-3 rounded-card border border-brand-100 bg-surface p-4 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 rounded-card border border-brand-100 bg-surface p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
             >
               <div>
                 <h2 className="font-semibold">{service.name}</h2>

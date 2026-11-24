@@ -1,3 +1,5 @@
+<img src="public/brand/logo-horizontal.png" alt="ServiceFlow SA" width="420">
+
 # ServiceFlow SA
 
 > ServiceFlow SA gives independent service providers a simple booking link so
