@@ -281,15 +281,15 @@ export default function LandingPage() {
       </section>
 
       {/* 4. For service providers band */}
-      <section className="rounded-card bg-brand-700 px-6 py-12 text-surface shadow-md sm:px-12 sm:py-16">
+      <section className="rounded-card bg-brand-900 px-6 py-12 text-white shadow-md sm:px-12 sm:py-16">
         <div className="max-w-3xl space-y-4">
-          <span className="inline-block rounded-full bg-brand-600 px-3 py-1 text-xs font-semibold tracking-wide text-brand-100">
+          <span className="inline-block rounded-full bg-brand-700 px-3 py-1 text-xs font-semibold tracking-wide text-white">
             For Service Providers
           </span>
-          <h2 className="text-3xl font-bold text-surface sm:text-4xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
             Stop losing bookings to WhatsApp and paper diaries.
           </h2>
-          <p className="text-base text-brand-100 sm:text-lg">
+          <p className="text-base text-white/80 sm:text-lg">
             ServiceFlow SA gives independent South African service pros the tools
             to look professional and get booked smoothly.
           </p>
@@ -297,20 +297,20 @@ export default function LandingPage() {
 
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="space-y-1">
-            <h3 className="font-bold text-surface">One shareable link</h3>
-            <p className="text-sm text-brand-100">
+            <h3 className="font-bold text-white">One shareable link</h3>
+            <p className="text-sm text-white/75">
               Share your custom booking link on Instagram, WhatsApp and TikTok.
             </p>
           </div>
           <div className="space-y-1">
-            <h3 className="font-bold text-surface">No double-bookings</h3>
-            <p className="text-sm text-brand-100">
+            <h3 className="font-bold text-white">No double-bookings</h3>
+            <p className="text-sm text-white/75">
               Database exclusion constraints block overlapping client requests automatically.
             </p>
           </div>
           <div className="space-y-1">
-            <h3 className="font-bold text-surface">All in one dashboard</h3>
-            <p className="text-sm text-brand-100">
+            <h3 className="font-bold text-white">All in one dashboard</h3>
+            <p className="text-sm text-white/75">
               Confirm or decline bookings, edit services and set working hours with ease.
             </p>
           </div>
