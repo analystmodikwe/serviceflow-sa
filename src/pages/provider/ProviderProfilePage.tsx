@@ -105,7 +105,7 @@ export default function ProviderProfilePage() {
       </h1>
 
       {provider && (
-        <div className="mt-5 flex flex-col gap-2 rounded-card border border-brand-100 bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-5 flex flex-col gap-2 rounded-card border border-brand-100 bg-surface p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm font-medium text-brand-700">Public link</p>
             <p className="break-all text-sm">/p/{provider.slug}</p>
@@ -113,7 +113,7 @@ export default function ProviderProfilePage() {
           <button
             type="button"
             onClick={() => void copyPublicLink()}
-            className="rounded-card bg-brand-700 px-4 py-2 text-sm font-semibold text-surface"
+            className="rounded-card bg-brand-700 px-4 py-2 text-sm font-semibold text-surface transition-colors hover:bg-brand-600"
           >
             {copied ? 'Copied' : 'Copy'}
           </button>

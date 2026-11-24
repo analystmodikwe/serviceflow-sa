@@ -12,7 +12,7 @@ export default function ProtectedRoute({
   if (loading) {
     return (
       <div className="flex min-h-64 items-center justify-center" role="status">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-100 border-t-brand-700" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-100 border-t-brand-500" />
       </div>
     )
   }

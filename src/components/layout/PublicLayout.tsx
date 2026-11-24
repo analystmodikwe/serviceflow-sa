@@ -8,9 +8,8 @@ export default function PublicLayout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b border-brand-100 bg-surface">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-4 sm:gap-4">
-         {/* The logo links home; shrink-0 stops it being squashed on small screens */}
+      <header className="sticky top-0 z-20 border-b border-brand-100 bg-surface/95 shadow-sm backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:py-4">
           <NavLink to="/" aria-label="ServiceFlow SA home" className="shrink-0">
             <Logo />
           </NavLink>
@@ -29,14 +28,14 @@ export default function PublicLayout() {
               <>
                 <NavLink
                   to={homePathForRole(role)}
-                  className="rounded-card px-2 py-2 text-sm font-medium text-ink hover:bg-brand-50 sm:px-3"
+                  className="rounded-card px-2 py-2 text-sm font-medium text-ink transition-colors hover:bg-brand-50 sm:px-3"
                 >
                   Dashboard
                 </NavLink>
                 <button
                   type="button"
                   onClick={() => void signOut()}
-                  className="rounded-card bg-accent-500 px-3 py-2 text-sm font-semibold text-ink hover:bg-accent-600"
+                  className="rounded-card bg-accent-500 px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-600"
                 >
                   Log out
                 </button>
@@ -56,7 +55,7 @@ export default function PublicLayout() {
                 <NavLink
                   to="/signup"
                   className={({ isActive }) =>
-                    `rounded-card bg-accent-500 px-3 py-2 text-sm font-semibold text-ink hover:bg-accent-600 ${
+                    `rounded-card bg-accent-500 px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-accent-600 ${
                       isActive ? 'ring-2 ring-brand-700' : ''
                     }`
                   }
@@ -73,8 +72,18 @@ export default function PublicLayout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-brand-100 px-4 py-5 text-center text-sm text-ink">
-        &copy; {new Date().getFullYear()} ServiceFlow SA
+      <footer className="bg-brand-900 px-4 py-8 text-surface">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+          <div>
+            <Logo variant="white" />
+            <p className="mt-2 text-sm text-brand-100">
+              Book trusted local services across South Africa.
+            </p>
+          </div>
+          <p className="text-sm text-brand-100">
+            &copy; {new Date().getFullYear()} ServiceFlow SA
+          </p>
+        </div>
       </footer>
     </div>
   )
