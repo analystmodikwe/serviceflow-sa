@@ -34,6 +34,13 @@ vi.mock('./lib/providerApi', () => ({
   }),
 }))
 
+vi.mock('./lib/bookingApi', () => ({
+  listProviders: vi.fn().mockResolvedValue({
+    providers: [],
+    error: null,
+  }),
+}))
+
 const auth = vi.hoisted(() => ({
   session: null as null | { user: { id: string } },
   profile: null as null | {
@@ -65,9 +72,19 @@ beforeEach(() => {
 })
 
 describe('app routes', () => {
+  it('renders browse page', async () => {
+    render(
+      <MemoryRouter initialEntries={['/browse']}>
+        <App />
+      </MemoryRouter>,
+    )
+    expect(
+      await screen.findByRole('heading', { name: 'Browse Providers' }),
+    ).toBeTruthy()
+  })
+
   it.each([
     ['/', 'Landing'],
-    ['/browse', 'Browse providers'],
     ['/p/sample-provider', 'Provider profile and booking'],
     ['/booking-confirmed', 'Booking confirmed'],
     ['/my-bookings', 'My bookings'],
@@ -80,6 +97,17 @@ describe('app routes', () => {
     )
 
     expect(screen.getByRole('heading', { name: title })).toBeTruthy()
+  })
+
+  it('renders browse page', async () => {
+    render(
+      <MemoryRouter initialEntries={['/browse']}>
+        <App />
+      </MemoryRouter>,
+    )
+    expect(
+      await screen.findByRole('heading', { name: 'Browse Providers' }),
+    ).toBeTruthy()
   })
 
   it.each([

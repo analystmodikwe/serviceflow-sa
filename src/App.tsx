@@ -9,6 +9,7 @@ import ProviderProfilePage from './pages/provider/ProviderProfilePage'
 import ServicesPage from './pages/provider/ServicesPage'
 import AvailabilityPage from './pages/provider/AvailabilityPage'
 import ProviderDashboardPage from './pages/provider/ProviderDashboardPage'
+import BrowsePage from './pages/BrowsePage'
 
 export default function App() {
   return (
@@ -17,7 +18,7 @@ export default function App() {
         <Route index element={<PagePlaceholder title="Landing" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
-        <Route path="browse" element={<PagePlaceholder title="Browse providers" />} />
+        <Route path="browse" element={<BrowsePage />} />
         <Route path="p/:slug" element={<PagePlaceholder title="Provider profile and booking" />} />
         <Route path="booking-confirmed" element={<PagePlaceholder title="Booking confirmed" />} />
         <Route path="*" element={<PagePlaceholder title="Page not found" />} />
