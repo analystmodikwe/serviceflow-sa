@@ -6,7 +6,7 @@
 
 | | |
 |---|---|
-| **Live app** | _Coming Tue 24 Nov, link added after first deploy_ |
+| **Live app** | [https://serviceflow-sa.vercel.app/](https://serviceflow-sa.vercel.app/) |
 | **Stitch designs** | [View the designs](https://stitch.google.com/projects/15248736337446016447) |
 | **Business case** | [BUSINESS.md](./BUSINESS.md) |
 | **PRD** | [docs/PRD.md](./docs/PRD.md) |
