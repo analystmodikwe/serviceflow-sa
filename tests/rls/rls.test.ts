@@ -10,9 +10,6 @@ describe('Row Level Security (RLS) Permission Tests', () => {
   let providerClient: SupabaseClient
   let providerUser: { id: string; email: string }
 
-  let provider2Client: SupabaseClient
-  let provider2User: { id: string; email: string }
-
   let adminClient: SupabaseClient
 
   // Discovered database rows to use across tests
@@ -34,10 +31,6 @@ describe('Row Level Security (RLS) Permission Tests', () => {
     const providerRes = await clientFor('provider@example.com')
     providerClient = providerRes.client
     providerUser = providerRes.user
-
-    const provider2Res = await clientFor('provider2@example.com')
-    provider2Client = provider2Res.client
-    provider2User = provider2Res.user
 
     const adminRes = await clientFor('admin@example.com')
     adminClient = adminRes.client
@@ -329,9 +322,9 @@ describe('Row Level Security (RLS) Permission Tests', () => {
     })
 
     it('CUSTOMER: cannot change their own role via profiles update (must fail or not change)', async () => {
-      const { error } = await customerClient
+      await customerClient
         .from('profiles')
-        .update({ role: 'admin' as any })
+        .update({ role: 'admin' as unknown as 'customer' })
         .eq('id', customerUser.id)
 
       // Revoked column privilege raises permission error or check constraint
@@ -434,14 +427,16 @@ describe('Row Level Security (RLS) Permission Tests', () => {
     })
 
     it('PROVIDER: cannot change their own is_verified or status (trigger error)', async () => {
+      // Thandi is initially is_verified: true, so toggling to false triggers distinct check
       const { error: verifyError } = await providerClient
         .from('providers')
-        .update({ is_verified: true })
+        .update({ is_verified: false })
         .eq('id', thandiProviderId)
 
       expect(verifyError).toBeDefined()
       expect(verifyError?.message).toContain('Only an admin can change status or verification')
 
+      // Thandi is status: active, so changing to suspended triggers distinct check
       const { error: statusError } = await providerClient
         .from('providers')
         .update({ status: 'suspended' })
@@ -469,11 +464,14 @@ describe('Row Level Security (RLS) Permission Tests', () => {
 
       if (ownBooking) createdBookingIds.push(ownBooking.id)
 
+      expect(ownBooking?.id).toBeDefined()
+      if (!ownBooking) throw new Error('Failed to create own booking')
+
       // Provider confirms own booking
       const { data: confirmedData, error: confirmError } = await providerClient
         .from('bookings')
         .update({ status: 'confirmed' })
-        .eq('id', ownBooking?.id)
+        .eq('id', ownBooking.id)
         .select('*')
         .single()
 
@@ -496,12 +494,14 @@ describe('Row Level Security (RLS) Permission Tests', () => {
         .single()
 
       if (otherBooking) createdBookingIds.push(otherBooking.id)
+      expect(otherBooking?.id).toBeDefined()
+      if (!otherBooking) throw new Error('Failed to create other booking')
 
       // Thandi tries to confirm Sipho's booking
       const { data: otherConfirmData, error: otherConfirmError } = await providerClient
         .from('bookings')
         .update({ status: 'confirmed' })
-        .eq('id', otherBooking?.id)
+        .eq('id', otherBooking.id)
         .select('*')
 
       if (otherConfirmError) {
@@ -527,18 +527,20 @@ describe('Row Level Security (RLS) Permission Tests', () => {
         .single()
 
       if (booking) createdBookingIds.push(booking.id)
+      expect(booking?.id).toBeDefined()
+      if (!booking) throw new Error('Failed to create booking')
 
       // Cancel the booking first
       await customerClient
         .from('bookings')
         .update({ status: 'cancelled' })
-        .eq('id', booking?.id)
+        .eq('id', booking.id)
 
       // Provider tries to change cancelled -> confirmed
       const { error: moveError } = await providerClient
         .from('bookings')
         .update({ status: 'confirmed' })
-        .eq('id', booking?.id)
+        .eq('id', booking.id)
 
       expect(moveError).toBeDefined()
       expect(moveError?.message).toContain('Invalid status change')

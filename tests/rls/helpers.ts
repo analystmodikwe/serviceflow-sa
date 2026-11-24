@@ -52,7 +52,7 @@ export async function clientFor(
   }
 }
 
-let slotCounter = 0
+let slotCounter = Math.floor(Math.random() * 1000)
 
 /**
  * Returns a unique future start and end time (ISO strings) on a weekday in March 2027
@@ -63,11 +63,15 @@ export function getUniqueFutureSlot(durationMin = 60): {
   endAt: string
 } {
   slotCounter += 1
-  // March 2027: March 1, 2027 is a Monday.
-  // Spread across days and hours
-  const day = 1 + (Math.floor(slotCounter / 8) % 20) // March 1 to 20
-  const hour = 8 + (slotCounter % 8) // 08:00 to 15:00 UTC
-  const minute = (slotCounter * 5) % 60
+  // March 2027: March 1, 2027 is Monday.
+  // March has 31 days. Weekdays in March 2027:
+  // 1-5, 8-12, 15-19, 22-26, 29-31.
+  const weekdayDays = [
+    1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 15, 16, 17, 18, 19, 22, 23, 24, 25, 26, 29, 30, 31,
+  ]
+  const day = weekdayDays[slotCounter % weekdayDays.length]
+  const hour = 8 + (Math.floor(slotCounter / weekdayDays.length) % 8) // 08:00 to 15:00 UTC
+  const minute = (slotCounter * 7) % 60
 
   const dayStr = String(day).padStart(2, '0')
   const hourStr = String(hour).padStart(2, '0')
