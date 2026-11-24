@@ -112,9 +112,7 @@ export default function AdminDashboardPage() {
   const [confirmSuspendProvider, setConfirmSuspendProvider] =
     useState<AdminProviderRow | null>(null)
 
-  const loadData = useCallback(async () => {
-    setLoading(true)
-    setLoadError('')
+  const fetchDashboardData = useCallback(async () => {
     const [providersRes, bookingsRes] = await Promise.all([
       listAllProviders(),
       listRecentBookings(50),
@@ -137,8 +135,35 @@ export default function AdminDashboardPage() {
   }, [])
 
   useEffect(() => {
-    void loadData()
-  }, [loadData])
+    let isMounted = true
+    void Promise.all([listAllProviders(), listRecentBookings(50)]).then(
+      ([providersRes, bookingsRes]) => {
+        if (!isMounted) return
+        if (providersRes.error) {
+          setLoadError(providersRes.error)
+          setLoading(false)
+          return
+        }
+        if (bookingsRes.error) {
+          setLoadError(bookingsRes.error)
+          setLoading(false)
+          return
+        }
+        setProviders(providersRes.providers)
+        setBookings(bookingsRes.bookings)
+        setLoading(false)
+      },
+    )
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  function handleRetry() {
+    setLoading(true)
+    setLoadError('')
+    void fetchDashboardData()
+  }
 
   const summary = useMemo(() => summariseProviders(providers), [providers])
   const filteredProviders = useMemo(
@@ -223,7 +248,7 @@ export default function AdminDashboardPage() {
           <p className="mt-1">{loadError}</p>
           <button
             type="button"
-            onClick={() => void loadData()}
+            onClick={handleRetry}
             className="mt-3 rounded-card bg-accent-500 px-4 py-2 text-sm font-semibold text-ink transition-colors duration-150 hover:bg-accent-600 focus-visible:outline-2 focus-visible:outline-brand-500"
           >
             Retry
