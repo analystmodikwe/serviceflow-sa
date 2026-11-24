@@ -5,6 +5,35 @@ import { MemoryRouter } from 'react-router-dom'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 
+vi.mock('./lib/providerApi', () => ({
+  getProviderProfile: vi.fn().mockResolvedValue({
+    provider: {
+      id: 'provider-1',
+      profile_id: 'test-user',
+      business_name: 'Test Barber',
+      slug: 'test-barber',
+      category: 'Barbers',
+      bio: '',
+      status: 'active',
+      is_verified: true,
+      created_at: '2026-01-01',
+    },
+    error: null,
+  }),
+  getProviderBookings: vi.fn().mockResolvedValue({
+    bookings: [],
+    error: null,
+  }),
+  getProviderAvailability: vi.fn().mockResolvedValue({
+    availability: [],
+    error: null,
+  }),
+  getProviderServices: vi.fn().mockResolvedValue({
+    services: [],
+    error: null,
+  }),
+}))
+
 const auth = vi.hoisted(() => ({
   session: null as null | { user: { id: string } },
   profile: null as null | {
@@ -70,7 +99,7 @@ describe('app routes', () => {
     expect(screen.getByRole('heading', { name: title })).toBeTruthy()
   })
 
-  it('renders provider routes for a signed-in provider', () => {
+  it('renders provider routes for a signed-in provider', async () => {
     auth.role = 'provider'
     auth.profile = {
       id: 'test-user',
@@ -84,7 +113,7 @@ describe('app routes', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole('heading', { name: 'Bookings' })).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: 'Dashboard' })).toBeTruthy()
   })
 
   it('renders admin routes for a signed-in admin', () => {

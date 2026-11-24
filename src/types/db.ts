@@ -1,4 +1,10 @@
 export type ProviderStatus = 'active' | 'suspended'
+export type BookingStatus =
+  | 'pending'
+  | 'confirmed'
+  | 'declined'
+  | 'cancelled'
+  | 'completed'
 
 export interface ProviderRow {
   id: string
@@ -35,4 +41,41 @@ export interface ServiceInput {
   price_cents: number
   duration_min: number
   is_active?: boolean
+}
+
+export interface AvailabilityRow {
+  id: string
+  provider_id: string
+  weekday: number // 0=Sunday..6=Saturday
+  start_time: string // HH:mm:ss or HH:mm
+  end_time: string // HH:mm:ss or HH:mm
+}
+
+export interface AvailabilityInput {
+  weekday: number
+  start_time: string
+  end_time: string
+}
+
+export interface BookingRow {
+  id: string
+  customer_id: string
+  provider_id: string
+  service_id: string
+  start_at: string
+  end_at: string
+  status: BookingStatus
+  notes: string | null
+  created_at: string
+  customer?: {
+    id: string
+    full_name: string
+    phone?: string | null
+  } | null
+  service?: {
+    id: string
+    name: string
+    price_cents: number
+    duration_min: number
+  } | null
 }

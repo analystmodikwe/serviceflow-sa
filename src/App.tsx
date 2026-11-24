@@ -7,6 +7,8 @@ import SignupPage from './pages/SignupPage'
 import ProtectedRoute from './auth/ProtectedRoute'
 import ProviderProfilePage from './pages/provider/ProviderProfilePage'
 import ServicesPage from './pages/provider/ServicesPage'
+import AvailabilityPage from './pages/provider/AvailabilityPage'
+import ProviderDashboardPage from './pages/provider/ProviderDashboardPage'
 
 export default function App() {
   return (
@@ -50,9 +52,9 @@ export default function App() {
             />
           }
         >
-          <Route index element={<PagePlaceholder title="Bookings" />} />
+          <Route index element={<ProviderDashboardPage />} />
           <Route path="services" element={<ServicesPage />} />
-          <Route path="availability" element={<PagePlaceholder title="Availability" />} />
+          <Route path="availability" element={<AvailabilityPage />} />
           <Route path="profile" element={<ProviderProfilePage />} />
         </Route>
       </Route>
