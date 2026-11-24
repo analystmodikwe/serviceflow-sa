@@ -55,8 +55,9 @@ export default function ProviderPage() {
   // Load provider details
   useEffect(() => {
     if (!slug) return
-    setLoading(true)
+    let isMounted = true
     void getProviderBySlug(slug).then((res) => {
+      if (!isMounted) return
       if (res.error) {
         setError(res.error)
       } else {
@@ -67,19 +68,18 @@ export default function ProviderPage() {
       }
       setLoading(false)
     })
+    return () => {
+      isMounted = false
+    }
   }, [slug])
 
   // Load slots whenever service, date, or provider changes
   useEffect(() => {
     if (!provider || !selectedService || !selectedDate) {
-      setOpenSlots([])
-      setSelectedSlot(null)
       return
     }
 
-    setSlotsLoading(true)
-    setSelectedSlot(null)
-
+    let isMounted = true
     // SAST day range in UTC: YYYY-MM-DD 00:00:00 SAST is (00 - 2) = -02:00 UTC
     // and next day 00:00:00 SAST is 22:00 UTC
     const [year, month, day] = selectedDate.split('-').map(Number)
@@ -87,6 +87,7 @@ export default function ProviderPage() {
     const toUtc = new Date(Date.UTC(year, month - 1, day, 22, 0, 0)).toISOString()
 
     void getBusySlots(provider.id, fromUtc, toUtc).then((res) => {
+      if (!isMounted) return
       if (res.error) {
         setError(res.error)
         setOpenSlots([])
@@ -102,6 +103,10 @@ export default function ProviderPage() {
       }
       setSlotsLoading(false)
     })
+
+    return () => {
+      isMounted = false
+    }
   }, [provider, selectedService, selectedDate])
 
   async function handleBookingSubmit() {
@@ -246,7 +251,10 @@ export default function ProviderPage() {
                     <button
                       key={service.id}
                       type="button"
-                      onClick={() => setSelectedService(service)}
+                      onClick={() => {
+                        setSelectedService(service)
+                        setSelectedSlot(null)
+                      }}
                       className={`flex flex-col justify-between rounded-card border p-4 text-left transition-all ${
                         isSelected
                           ? 'border-brand-500 bg-brand-50 ring-2 ring-brand-500'
@@ -279,7 +287,10 @@ export default function ProviderPage() {
                 min={minDate}
                 max={maxDate}
                 value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
+                onChange={(e) => {
+                  setSelectedDate(e.target.value)
+                  setSelectedSlot(null)
+                }}
                 className="w-full max-w-xs rounded-card border border-brand-100 bg-surface px-4 py-2.5 text-sm font-medium"
               />
             </div>

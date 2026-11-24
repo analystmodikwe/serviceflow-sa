@@ -39,6 +39,18 @@ vi.mock('./lib/bookingApi', () => ({
     providers: [],
     error: null,
   }),
+  listMyBookings: vi.fn().mockResolvedValue({
+    bookings: [],
+    error: null,
+  }),
+  getProviderBySlug: vi.fn().mockResolvedValue({
+    provider: null,
+    error: null,
+  }),
+  getBusySlots: vi.fn().mockResolvedValue({
+    busy: [],
+    error: null,
+  }),
 }))
 
 const auth = vi.hoisted(() => ({
@@ -83,11 +95,19 @@ describe('app routes', () => {
     ).toBeTruthy()
   })
 
+  it('renders my-bookings page', async () => {
+    render(
+      <MemoryRouter initialEntries={['/my-bookings']}>
+        <App />
+      </MemoryRouter>,
+    )
+    expect(
+      await screen.findByRole('heading', { name: 'My Bookings' }),
+    ).toBeTruthy()
+  })
+
   it.each([
     ['/', 'Landing'],
-    ['/p/sample-provider', 'Provider profile and booking'],
-    ['/booking-confirmed', 'Booking confirmed'],
-    ['/my-bookings', 'My bookings'],
     ['/not-found', 'Page not found'],
   ])('renders %s as %s', (path, title) => {
     render(

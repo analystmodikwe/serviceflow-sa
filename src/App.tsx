@@ -12,6 +12,7 @@ import ProviderDashboardPage from './pages/provider/ProviderDashboardPage'
 import BrowsePage from './pages/BrowsePage'
 import ProviderPage from './pages/ProviderPage'
 import BookingConfirmedPage from './pages/BookingConfirmedPage'
+import MyBookingsPage from './pages/MyBookingsPage'
 
 export default function App() {
   return (
@@ -36,7 +37,7 @@ export default function App() {
             />
           }
         >
-          <Route index element={<PagePlaceholder title="My bookings" />} />
+          <Route index element={<MyBookingsPage />} />
         </Route>
       </Route>
 
