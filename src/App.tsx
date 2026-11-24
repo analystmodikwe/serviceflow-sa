@@ -14,6 +14,7 @@ import BrowsePage from './pages/BrowsePage'
 import ProviderPage from './pages/ProviderPage'
 import BookingConfirmedPage from './pages/BookingConfirmedPage'
 import MyBookingsPage from './pages/MyBookingsPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 
 export default function App() {
   return (
@@ -74,7 +75,7 @@ export default function App() {
             />
           }
         >
-          <Route index element={<PagePlaceholder title="Providers" />} />
+          <Route index element={<AdminDashboardPage />} />
         </Route>
       </Route>
     </Routes>
