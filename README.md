@@ -135,6 +135,23 @@ npm run build       # production build
 
 The same four checks run in CI on every pull request.
 
+### How to run the RLS tests
+
+The Row Level Security (RLS) integration tests run against a live Supabase instance using real authenticated demo users and the public anonymous key. They are kept separate from the unit test suite and do not run in CI.
+
+**Requirements:**
+- A `.env.local` file containing:
+  ```bash
+  VITE_SUPABASE_URL=<your project url>
+  VITE_SUPABASE_ANON_KEY=<your public anon key>
+  ```
+- Seeded test users and providers (from `npm run seed`).
+
+**Running the tests:**
+```bash
+npm run test:rls
+```
+
 ## How the project is built
 
 This is a solo project built the way the course teaches:

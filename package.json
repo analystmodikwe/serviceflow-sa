@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "test": "vitest run --passWithNoTests",
+    "test:rls": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.rls.config.ts",
     "lint": "eslint .",
     "seed": "node --env-file=.env.local scripts/seed.mjs",
     "preview": "vite preview"

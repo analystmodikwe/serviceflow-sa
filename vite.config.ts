@@ -1,8 +1,11 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite' // NEW: Tailwind's Vite plugin
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  // NEW: add tailwindcss() next to the react plugin
   plugins: [react(), tailwindcss()],
+  test: {
+    exclude: ['tests/rls/**', 'node_modules/**'],
+  },
 })
