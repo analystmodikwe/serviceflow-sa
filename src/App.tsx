@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import DashboardLayout from './components/layout/DashboardLayout'
 import PublicLayout from './components/layout/PublicLayout'
-import PagePlaceholder from './pages/PagePlaceholder'
 import LandingPage from './pages/LandingPage'
+import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProtectedRoute from './auth/ProtectedRoute'
@@ -14,6 +14,7 @@ import BrowsePage from './pages/BrowsePage'
 import ProviderPage from './pages/ProviderPage'
 import BookingConfirmedPage from './pages/BookingConfirmedPage'
 import MyBookingsPage from './pages/MyBookingsPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 
 export default function App() {
   return (
@@ -24,7 +25,7 @@ export default function App() {
         <Route path="signup" element={<SignupPage />} />
         <Route path="browse" element={<BrowsePage />} />
         <Route path="p/:slug" element={<ProviderPage />} />
-        <Route path="*" element={<PagePlaceholder title="Page not found" />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={['customer']} />}>
@@ -74,7 +75,7 @@ export default function App() {
             />
           }
         >
-          <Route index element={<PagePlaceholder title="Providers" />} />
+          <Route index element={<AdminDashboardPage />} />
         </Route>
       </Route>
     </Routes>

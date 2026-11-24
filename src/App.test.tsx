@@ -53,6 +53,19 @@ vi.mock('./lib/bookingApi', () => ({
   }),
 }))
 
+vi.mock('./lib/adminApi', () => ({
+  listAllProviders: vi.fn().mockResolvedValue({
+    providers: [],
+    error: null,
+  }),
+  listRecentBookings: vi.fn().mockResolvedValue({
+    bookings: [],
+    error: null,
+  }),
+  setProviderStatus: vi.fn(),
+  setProviderVerified: vi.fn(),
+}))
+
 const auth = vi.hoisted(() => ({
   session: null as null | { user: { id: string } },
   profile: null as null | {
@@ -177,7 +190,7 @@ describe('app routes', () => {
     expect(await screen.findByRole('heading', { name: 'Dashboard' })).toBeTruthy()
   })
 
-  it('renders admin routes for a signed-in admin', () => {
+  it('renders admin routes for a signed-in admin', async () => {
     auth.role = 'admin'
     auth.profile = {
       id: 'test-user',
@@ -191,6 +204,8 @@ describe('app routes', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole('heading', { name: 'Providers' })).toBeTruthy()
+    expect(
+      await screen.findByRole('heading', { name: 'Admin Dashboard' }),
+    ).toBeTruthy()
   })
 })

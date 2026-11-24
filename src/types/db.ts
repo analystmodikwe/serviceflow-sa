@@ -79,3 +79,43 @@ export interface BookingRow {
     duration_min: number
   } | null
 }
+
+export interface AdminProviderRow extends ProviderRow {
+  owner: {
+    id: string
+    full_name: string
+  } | null
+  booking_count: number
+}
+
+export interface AdminBookingRow {
+  id: string
+  customer_id: string
+  provider_id: string
+  service_id: string
+  start_at: string
+  end_at: string
+  status: BookingStatus
+  notes: string | null
+  created_at: string
+  provider: {
+    id: string
+    business_name: string
+    slug: string
+  } | null
+  customer: {
+    id: string
+    full_name: string
+  } | null
+  service: {
+    id: string
+    name: string
+  } | null
+}
+
+export interface ProviderSummary {
+  total: number
+  active: number
+  suspended: number
+  verified: number
+}
