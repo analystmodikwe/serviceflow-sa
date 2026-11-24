@@ -9,6 +9,10 @@ import ProviderProfilePage from './pages/provider/ProviderProfilePage'
 import ServicesPage from './pages/provider/ServicesPage'
 import AvailabilityPage from './pages/provider/AvailabilityPage'
 import ProviderDashboardPage from './pages/provider/ProviderDashboardPage'
+import BrowsePage from './pages/BrowsePage'
+import ProviderPage from './pages/ProviderPage'
+import BookingConfirmedPage from './pages/BookingConfirmedPage'
+import MyBookingsPage from './pages/MyBookingsPage'
 
 export default function App() {
   return (
@@ -17,13 +21,13 @@ export default function App() {
         <Route index element={<PagePlaceholder title="Landing" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
-        <Route path="browse" element={<PagePlaceholder title="Browse providers" />} />
-        <Route path="p/:slug" element={<PagePlaceholder title="Provider profile and booking" />} />
-        <Route path="booking-confirmed" element={<PagePlaceholder title="Booking confirmed" />} />
+        <Route path="browse" element={<BrowsePage />} />
+        <Route path="p/:slug" element={<ProviderPage />} />
         <Route path="*" element={<PagePlaceholder title="Page not found" />} />
       </Route>
 
       <Route element={<ProtectedRoute allowedRoles={['customer']} />}>
+        <Route path="booking-confirmed" element={<BookingConfirmedPage />} />
         <Route
           path="my-bookings"
           element={
@@ -33,7 +37,7 @@ export default function App() {
             />
           }
         >
-          <Route index element={<PagePlaceholder title="My bookings" />} />
+          <Route index element={<MyBookingsPage />} />
         </Route>
       </Route>
 
