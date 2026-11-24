@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { homePathForRole } from '../../auth/AuthContext'
 import { useAuth } from '../../auth/useAuth'
+import Logo from '../Logo'
 
 export default function PublicLayout() {
   const { session, role, signOut } = useAuth()
@@ -9,8 +10,9 @@ export default function PublicLayout() {
     <div className="flex min-h-screen flex-col">
       <header className="border-b border-brand-100 bg-surface">
         <nav className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-4 sm:gap-4">
-          <NavLink to="/" className="shrink-0 text-lg font-bold text-brand-700 sm:text-xl">
-            ServiceFlow SA
+         {/* The logo links home; shrink-0 stops it being squashed on small screens */}
+          <NavLink to="/" aria-label="ServiceFlow SA home" className="shrink-0">
+            <Logo />
           </NavLink>
           <div className="flex items-center gap-1 sm:gap-2">
             <NavLink
