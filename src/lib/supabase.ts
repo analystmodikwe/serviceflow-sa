@@ -4,7 +4,9 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('Missing Supabase environment variables. Using placeholder values.')
+  console.warn(
+    'Missing Supabase environment variables. Using placeholder values for local development and builds.',
+  )
 }
 
 export const supabase = createClient(
