@@ -106,8 +106,21 @@ describe('app routes', () => {
     ).toBeTruthy()
   })
 
+  it('renders landing page at /', async () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>,
+    )
+    expect(
+      await screen.findByRole('heading', {
+        level: 1,
+        name: 'Book trusted local services in seconds.',
+      }),
+    ).toBeTruthy()
+  })
+
   it.each([
-    ['/', 'Landing'],
     ['/not-found', 'Page not found'],
   ])('renders %s as %s', (path, title) => {
     render(

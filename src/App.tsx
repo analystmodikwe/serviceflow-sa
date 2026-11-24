@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import DashboardLayout from './components/layout/DashboardLayout'
 import PublicLayout from './components/layout/PublicLayout'
 import PagePlaceholder from './pages/PagePlaceholder'
+import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import ProtectedRoute from './auth/ProtectedRoute'
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <Routes>
       <Route element={<PublicLayout />}>
-        <Route index element={<PagePlaceholder title="Landing" />} />
+        <Route index element={<LandingPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="browse" element={<BrowsePage />} />
