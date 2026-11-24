@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { listProviders, type ProviderWithServices } from '../lib/bookingApi'
 import { formatRands } from '../lib/providerHelpers'
 
 const CATEGORIES = ['All', 'Barbers', 'Braiders', 'Nail techs', 'Car wash', 'Other']
 
 export default function BrowsePage() {
+  const [searchParams] = useSearchParams()
+  const catFromUrl = searchParams.get('category')
+  const defaultCategory = catFromUrl && CATEGORIES.includes(catFromUrl) ? catFromUrl : 'All'
+
   const [providers, setProviders] = useState<ProviderWithServices[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedCategory, setSelectedCategory] = useState(defaultCategory)
 
   useEffect(() => {
     void listProviders().then((res) => {
@@ -84,7 +88,9 @@ export default function BrowsePage() {
               <button
                 key={cat}
                 type="button"
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => {
+                  setSelectedCategory(cat)
+                }}
                 className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
                   isSelected
                     ? 'bg-brand-700 text-surface'
