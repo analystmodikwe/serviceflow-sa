@@ -44,7 +44,7 @@ export default function DashboardLayout({ title, items }: DashboardLayoutProps) 
           <Logo variant="white" />
         </NavLink>
         <h1 className="text-xl font-bold text-white">{title}</h1>
-        {profile && <p className="text-sm text-white/80">{profile.full_name}</p>}
+        {profile && <p className="text-sm text-white">{profile.full_name}</p>}
         <nav aria-label={`${title} navigation`} className="flex flex-col gap-2">
           {items.map((item) => (
             <NavigationLink key={item.to} {...item} />
