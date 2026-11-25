@@ -14,7 +14,7 @@
 | **PRD** | [docs/PRD.md](./docs/PRD.md) |
 | **Implementation plan** | [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) |
 | **Project board** | [ServiceFlow SA Roadmap](https://github.com/users/analystmodikwe/projects/13) |
-| **Demo video** | Loom: ADD LINK AT SUBMISSION |
+| **Demo video** | Loom: [Watch the Loom pitch and demo](https://www.loom.com/share/28c88eeb852447c88e613c6d844a80b7) |
 
 ## Test logins
 Demo accounts with sample data. All use the password `ServiceFlow!2026`.
