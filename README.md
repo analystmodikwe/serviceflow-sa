@@ -141,4 +141,4 @@ Built by **Lesedi Modikwe**, AI Full Stack Software Developer.
 - [GitHub](https://github.com/analystmodikwe)
 - [LinkedIn](https://www.linkedin.com/in/lesedi-modikwe/)
 - Email: [lmodikwe10@gmail.com](mailto:lmodikwe10@gmail.com)
-- Email: [analystmodikwe11@gmail.com](mailto:analystmodikwe11@gmail.com)
+- Email: [analystmodikwe18@gmail.com](mailto:analystmodikwe18@gmail.com)
